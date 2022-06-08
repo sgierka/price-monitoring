@@ -15,6 +15,10 @@ class Shop():
         self.soup = BeautifulSoup(self.page.text, 'html.parser')
 
     def ShortenUrl(self):
+        '''
+        shorten the link to the page with the product offer
+        using the api key from bitly.com
+        '''
         type_bitly = pyshorteners.Shortener(
             api_key=creds.api_key)
         self.short_url = str(type_bitly.bitly.short(self.url))
@@ -43,6 +47,7 @@ class Hebe(Shop):
         return name
 
     def GetRegularPrice(self):
+        '''Extract product regular price'''
         reg_price_int = int(self.soup.find('div', {'class':
                                            'price-product__standard'
                                                    }).next_element.strip())
@@ -53,6 +58,7 @@ class Hebe(Shop):
         return reg_price
 
     def GetSalePrice(self):
+        '''Extract product sale price'''
         sale_price_int = int(self.soup.find('div', {'class':
                                             'price-product__sales'}
                                             ).next_element.strip())
@@ -63,12 +69,18 @@ class Hebe(Shop):
         return sale_price
 
     def CalcPct(self):
+        '''calculate the price reduction as a percentage'''
         reg_price = self.GetRegularPrice()
         sale_price = self.GetSalePrice()
         sale_pct = round((1-(sale_price/reg_price)) * 100)
         return sale_pct
 
     def GetInfo(self):
+        '''
+           create a product data list which includes:
+           product name, regular price, sale price, 
+           price reduction as a percentage and shortened link 
+        '''
         name = self.GetName()
         reg_p = self.GetRegularPrice()
         sale_p = self.GetSalePrice()
