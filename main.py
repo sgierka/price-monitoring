@@ -3,7 +3,6 @@ from tkinter import ttk, messagebox
 import requests
 from bs4 import BeautifulSoup
 from shops import *
-from functools import partial
 import os
 
 
@@ -136,8 +135,8 @@ class GUI(tk.Tk):
         l1.pack(side='top', fill='both')
         self.t_link = tk.Entry(f_top, width=90)
         self.t_link.pack(side='top')
-        t_info = tk.Label(f_right, text='Info:\nthe first & the last version' +
-                          '\nmade by  sgierka', font=('Arial', 7, 'bold'),
+        t_info = tk.Label(f_right, text='Version: 1.0' +
+                          '\nmade by sgierka', font=('Arial', 7, 'bold'),
                           bg='white')
         t_info.pack(side='bottom')
 
